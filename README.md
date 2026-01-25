@@ -47,7 +47,7 @@ Gráficos gerados pelo módulo de integração científica (Python/Colab):
 
 ## 🚀 Implantação
 
-1. **Clone o repositório**: `git clone https://github.com/seu_usuario/lago_paranoa.git`
+1. **Clone o repositório**: `git clone https://github.com/sutiliza-org/lago_paranoa.git`
 2. **Abra o Google Sheets**: [Planilha Modelo](https://docs.google.com/spreadsheets/d/1A2B3C4D5E6F7G8/edit#gid=0)
 3. **Vincule o Apps Script**: Extensões > Apps Script
 4. **Cole o código**: Substitua o código padrão pelo código do repositório
@@ -447,4 +447,5 @@ python run_all_tools.py
 ---
 
 **Made with ❤️ for Environmental Monitoring**  
+
 **🚀 Zero Dependencies • 100% Python Built-in • CI/CD Ready**
