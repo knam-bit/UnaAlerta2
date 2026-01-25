@@ -1,0 +1,43 @@
+<!--
+/**
+ * @file DrenagemView.html
+ * @project Monitoramento Lago Paranoá
+ * @category urbanizacao
+ * @tags drenagem, urbanizacao, ui
+ * @architecture Mobile-First, Offline-First
+ * @description Componente gerado para monitoramento de indicadores e conscientização civil.
+ * @context Relatorio.md - Dinâmica Limnológica e Governança do Lago Paranoá
+ */
+-->
+
+<div class='component' id='DrenagemView'>
+    <style>
+      .drain-status { display: flex; align-items: center; gap: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 8px; }
+      .drain-icon { font-size: 1.5rem; }
+      .toxic-flush { border-color: #9c27b0; background: #f3e5f5; }
+      .clandestine { border-color: #f44336; background: #ffebee; }
+    </style>
+  
+    <h3>Sistema de Drenagem Urbana</h3>
+    <p class="context-note">Poluição Difusa e Ligações Clandestinas (Relatorio.md - Seção 3.3)</p>
+  
+    <div id="drainage-alerts">
+      <div class="drain-status toxic-flush">
+        <div class="drain-icon">🌧️</div>
+        <div>
+          <strong>Alerta "First Flush"</strong><br>
+          <small>Lavagem das vias após 15 dias de seca. Carga tóxica (óleos/metais) esperada.</small>
+        </div>
+      </div>
+  
+      <div class="drain-status clandestine">
+        <div class="drain-icon">🚫</div>
+        <div>
+          <strong>Anomalia em Tempo Seco</strong><br>
+          <small>Fluxo detectado sem chuva (Lago Norte - QL 06). Provável esgoto clandestino.</small>
+        </div>
+      </div>
+    </div>
+  
+    <button class="action-btn-primary" onclick="google.script.run.reportDrainIssue()">Reportar Odor/Mancha</button>
+  </div>

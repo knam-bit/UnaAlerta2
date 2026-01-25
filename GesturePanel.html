@@ -1,0 +1,40 @@
+<!--
+/**
+ * @file GesturePanel.html
+ * @project Monitoramento Lago Paranoá
+ * @category mobile
+ * @tags gesture, mobile, ui
+ * @architecture Mobile-First, Offline-First
+ * @description Componente gerado para monitoramento de indicadores e conscientização civil.
+ * @context Relatorio.md - Dinâmica Limnológica e Governança do Lago Paranoá
+ */
+-->
+
+<div class='component' id='GesturePanel'>
+  <!-- Mobile-first UI -->
+  <h3>GesturePanel</h3>
+  <p>Interface for gesture (mobile)</p>
+
+  <style>
+    .gesture-overlay { position: fixed; bottom: 20px; right: 20px; z-index: 1000; display: flex; flex-direction: column; gap: 10px; }
+    .gesture-btn { width: 50px; height: 50px; border-radius: 50%; background: rgba(0,0,0,0.7); color: white; border: none; font-size: 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.3); }
+    .gesture-hint { font-size: 0.7rem; text-align: center; color: white; margin-top: -5px; text-shadow: 1px 1px 2px black; }
+  </style>
+
+  <!-- Overlay controls for mobile map manipulation -->
+  <div class="gesture-overlay" id="mobile-controls" style="display:none;">
+    <button class="gesture-btn" onclick="map.zoomIn()">+</button>
+    <button class="gesture-btn" onclick="map.zoomOut()">-</button>
+    <button class="gesture-btn" onclick="toggleLayer('SATELLITE')">🛰️</button>
+    <span class="gesture-hint">Satélite</span>
+    <button class="gesture-btn" onclick="locateUser()">📍</button>
+    <span class="gesture-hint">Eu</span>
+  </div>
+
+  <script>
+    // Simple logic to show controls only on touch devices
+    if ('ontouchstart' in window || navigator.maxTouchPoints) {
+      document.getElementById('mobile-controls').style.display = 'flex';
+    }
+  </script>
+</div>

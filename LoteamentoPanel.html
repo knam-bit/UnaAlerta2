@@ -1,0 +1,54 @@
+<!--
+/**
+ * @file LoteamentoPanel.html
+ * @project Monitoramento Lago Paranoá
+ * @category urbanizacao
+ * @tags loteamento, urbanizacao, ui
+ * @architecture Mobile-First, Offline-First
+ * @description Componente gerado para monitoramento de indicadores e conscientização civil.
+ * @context Relatorio.md - Dinâmica Limnológica e Governança do Lago Paranoá
+ */
+-->
+
+<div class='component' id='LoteamentoPanel'>
+  <style>
+    .recharge-meter { height: 12px; background: rgba(0,0,0,0.05); border-radius: 10px; overflow: hidden; margin-top: 8px; }
+    .recharge-fill { height: 100%; transition: width 0.5s ease-out; border-radius: 10px; }
+    .soil-info { font-family: 'Roboto Mono', monospace; color: var(--text-muted); font-size: 0.85em; background: rgba(0,0,0,0.03); padding: 4px 8px; border-radius: 4px; display: inline-block; margin-bottom: 10px;}
+    .alert-box { 
+      border-left: 4px solid var(--warning-color); 
+      background: #FFFDE7; 
+      color: #F57F17; 
+      padding: 12px; 
+      margin-top: 15px; 
+      font-size: 0.9em; 
+      border-radius: 4px;
+    }
+  </style>
+
+  <h3>Monitoramento de Expansão Urbana</h3>
+  <p class="context-note" style="color: var(--text-muted);">Impacto em Áreas de Recarga (Relatorio.md - Seção 2.1 e 3.1)</p>
+
+  <div class="subdivision-card">
+    <h4>Região: Grande Colorado / Sobradinho</h4>
+    <p class="soil-info">Solo: LATOSSOLO VERMELHO (Kv ~1.2e-4 m/s)</p>
+    
+    <label style="font-weight: 500;">Impermeabilização do Solo:</label>
+    <div class="recharge-meter">
+      <div class="recharge-fill" style="width: 65%; background: var(--danger-color);"></div>
+    </div>
+    <div style="display:flex; justify-content:space-between; font-size:0.8rem; margin-top:4px;">
+      <span style="color: var(--danger-color); font-weight:bold;">65% Impermeável</span>
+      <span style="color: var(--text-muted);">Crítico > 50%</span>
+    </div>
+
+    <div class="alert-box">
+      <strong>⚠️ Risco Duplo Detectado:</strong><br>
+      Urbanização sobre aquífero fraturado com alta permeabilidade vertical. Risco de perda de fluxo de base para o lago.
+    </div>
+
+    <button class="btn-std btn-primary" style="margin-top: 15px; width: 100%;" onclick="google.script.run.suggestionWSUD()">
+      Ver Medidas de Drenagem Sustentável (WSUD)
+    </button>
+  </div>
+</div>

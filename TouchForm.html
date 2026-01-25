@@ -1,0 +1,37 @@
+<!--
+/**
+ * @file TouchForm.html
+ * @project Monitoramento Lago Paranoá
+ * @category mobile
+ * @tags touch, mobile, ui
+ * @architecture Mobile-First, Offline-First
+ * @description Componente gerado para monitoramento de indicadores e conscientização civil.
+ * @context Relatorio.md - Dinâmica Limnológica e Governança do Lago Paranoá
+ */
+-->
+
+<div class='component' id='TouchForm'>
+  <!-- Mobile-first UI -->
+  <style>
+    .touch-btn {
+      width: 100%;
+      min-height: 48px; /* Touch target fix for iOS/Android */
+      padding: 12px;
+      margin: 5px 0;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: #f8f9fa;
+      font-size: 16px;
+      touch-action: manipulation;
+    }
+    .touch-btn:active { background: #e8f0fe; border-color: #1a73e8; }
+  </style>
+  <h3>Entrada de Dados Tátil</h3>
+  <p>Formulário otimizado para coleta em campo (Mobile).</p>
+  <div class="input-group">
+    <label>Observação Rápida:</label>
+    <button class="touch-btn">Erosão/Sedimento</button>
+    <button class="touch-btn">Esgoto na Pluvial</button>
+    <button class="touch-btn">Odor/Floração</button>
+  </div>
+</div>

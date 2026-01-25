@@ -1,0 +1,45 @@
+<!--
+/**
+ * @file ParticipacaoPanel.html
+ * @project Monitoramento Lago Paranoá
+ * @category sociedade
+ * @tags participacao, sociedade, ui
+ * @architecture Mobile-First, Offline-First
+ * @description Componente gerado para monitoramento de indicadores e conscientização civil.
+ * @context Relatorio.md - Dinâmica Limnológica e Governança do Lago Paranoá
+ */
+-->
+
+<div class='component' id='ParticipacaoPanel'>
+  <style>
+    .science-input { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ddd; border-radius: 4px; }
+    .toggle-group { display: flex; gap: 10px; margin: 10px 0; }
+    .toggle-btn { flex: 1; padding: 10px; border: 1px solid #ccc; background: #f9f9f9; cursor: pointer; text-align: center; }
+    .toggle-btn.active { background: #2196F3; color: white; border-color: #1976D2; }
+  </style>
+
+  <h3>Monitoramento Cidadão</h3>
+  <p class="context-note">Ajude a monitorar a eutrofização. Contexto: Relatorio.md - 1. Introdução</p>
+
+  <form id="citizen-science-form">
+    <label>Profundidade do Disco de Secchi (m):</label>
+    <input type="number" step="0.1" class="science-input" placeholder="Ex: 1.5">
+
+    <label>Aparência da Água (Visual):</label>
+    <div class="toggle-group">
+      <div class="toggle-btn" onclick="selectColor(this, 'CLEAR')">Clara</div>
+      <div class="toggle-btn" onclick="selectColor(this, 'GREEN')">Verde (Algas)</div>
+      <div class="toggle-btn" onclick="selectColor(this, 'BROWN')">Barrenta (Erosão)</div>
+    </div>
+    
+    <label>Observação de Fauna (Bioindicadores):</label>
+    <select class="science-input">
+      <option value="">Selecione...</option>
+      <option value="FISH_KILL">Peixes Mortos (Anoxia)</option>
+      <option value="CAPIVARA_FAMILY">Família de Capivaras</option>
+      <option value="BIRDS">Aves Aquáticas</option>
+    </select>
+
+    <button type="button" class="action-btn-primary" onclick="submitObservation()">Enviar Dados</button>
+  </form>
+</div>

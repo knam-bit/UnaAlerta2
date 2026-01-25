@@ -1,0 +1,350 @@
+<!--
+/**
+ * @file GeoLocationIndicator.html
+ * @project Monitoramento Lago Paranoá
+ * @category mobile
+ * @tags geo_location, mobile, ui
+ * @architecture Mobile-First, Offline-First
+ * @description Widget de geolocalização com GPS real otimizado para Samsung S20/Comet Browser
+ * @context Relatorio.md - Dinâmica Limnológica e Governança do Lago Paranoá
+ * @version 2.0
+ */
+-->
+
+<div class='component' id='GeoLocationIndicator'>
+  <style>
+    .geo-indicator {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      border: 1px solid #bae6fd;
+      border-radius: 12px;
+      padding: 16px;
+      margin: 16px 0;
+    }
+
+    .geo-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .geo-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #0369a1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .geo-status-badge {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    .geo-status-badge.active {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .geo-status-badge.inactive {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .geo-status-badge.error {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .geo-coords-display {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .coord-block {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .coord-label {
+      font-size: 0.75rem;
+      color: #64748b;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .coord-value {
+      font-size: 1.1rem;
+      font-family: 'SF Mono', 'Roboto Mono', monospace;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    .geo-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: #64748b;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    .geo-btn-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .geo-btn {
+      flex: 1;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .geo-btn-primary {
+      background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+      color: white;
+    }
+
+    .geo-btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+    }
+
+    .geo-btn-secondary {
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #e2e8f0;
+    }
+
+    .geo-btn-secondary:hover {
+      background: #e2e8f0;
+    }
+
+    .geo-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .geo-watch-indicator {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: #dbeafe;
+      border-radius: 8px;
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: #1e40af;
+    }
+
+    .geo-watch-indicator.active {
+      display: flex;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #3b82f6;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.5;
+        transform: scale(1.3);
+      }
+    }
+  </style>
+
+  <div class="geo-indicator">
+    <div class="geo-header">
+      <span class="geo-title">
+        📍 Geolocalização
+      </span>
+      <span class="geo-status-badge inactive" id="geo-status-badge">Inativo</span>
+    </div>
+
+    <div class="geo-coords-display">
+      <div class="coord-block">
+        <div class="coord-label">Latitude</div>
+        <div class="coord-value" id="geo-lat">--</div>
+      </div>
+      <div class="coord-block">
+        <div class="coord-label">Longitude</div>
+        <div class="coord-value" id="geo-lng">--</div>
+      </div>
+    </div>
+
+    <div class="geo-meta">
+      <span id="geo-accuracy">Precisão: --</span>
+      <span id="geo-timestamp">Última atualização: --</span>
+    </div>
+
+    <div class="geo-btn-row">
+      <button class="geo-btn geo-btn-primary" id="geo-capture-btn" onclick="GeoIndicator.capture()">
+        🎯 Capturar
+      </button>
+      <button class="geo-btn geo-btn-secondary" id="geo-watch-btn" onclick="GeoIndicator.toggleWatch()">
+        👁️ Monitorar
+      </button>
+    </div>
+
+    <div class="geo-watch-indicator" id="geo-watch-indicator">
+      <span class="pulse-dot"></span>
+      <span>Monitoramento ativo - atualizando em tempo real</span>
+      <button onclick="GeoIndicator.stopWatch()"
+        style="margin-left:auto; background:none; border:none; cursor:pointer; font-size:1.1rem;">✕</button>
+    </div>
+  </div>
+
+  <script>
+    /**
+     * GeoIndicator - Widget de Geolocalização
+     */
+    var GeoIndicator = {
+      _isWatching: false,
+      _watchId: null,
+
+      /**
+       * Captura posição única
+       */
+      capture: function () {
+        var self = this;
+
+        if (typeof GPSHelper === 'undefined') {
+          this._updateStatus('error', 'GPS não disponível');
+          return;
+        }
+
+        if (!GPSHelper.isSupported()) {
+          this._updateStatus('error', 'GPS não suportado');
+          return;
+        }
+
+        this._updateStatus('inactive', 'Obtendo...');
+        document.getElementById('geo-capture-btn').disabled = true;
+
+        GPSHelper.getCurrentPosition(
+          function (pos) {
+            self._updateDisplay(pos);
+            self._updateStatus('active', 'Ativo');
+            document.getElementById('geo-capture-btn').disabled = false;
+
+            if (typeof UIHelper !== 'undefined') {
+              UIHelper.vibrate([50]);
+            }
+          },
+          function (error) {
+            self._updateStatus('error', 'Erro');
+            document.getElementById('geo-capture-btn').disabled = false;
+
+            if (typeof UIHelper !== 'undefined') {
+              UIHelper.showToast(error.message, 'error');
+            }
+          }
+        );
+      },
+
+      /**
+       * Alterna monitoramento contínuo
+       */
+      toggleWatch: function () {
+        if (this._isWatching) {
+          this.stopWatch();
+        } else {
+          this.startWatch();
+        }
+      },
+
+      /**
+       * Inicia monitoramento contínuo
+       */
+      startWatch: function () {
+        var self = this;
+
+        if (typeof GPSHelper === 'undefined' || !GPSHelper.isSupported()) {
+          if (typeof UIHelper !== 'undefined') {
+            UIHelper.showToast('GPS não disponível', 'error');
+          }
+          return;
+        }
+
+        this._isWatching = true;
+        document.getElementById('geo-watch-btn').textContent = '⏹️ Parar';
+        document.getElementById('geo-watch-indicator').classList.add('active');
+
+        GPSHelper.watchPosition(
+          function (pos) {
+            self._updateDisplay(pos);
+            self._updateStatus('active', 'Monitorando');
+          },
+          function (error) {
+            self._updateStatus('error', 'Erro: ' + error.message);
+          }
+        );
+      },
+
+      /**
+       * Para monitoramento
+       */
+      stopWatch: function () {
+        if (typeof GPSHelper !== 'undefined') {
+          GPSHelper.stopWatch();
+        }
+
+        this._isWatching = false;
+        document.getElementById('geo-watch-btn').textContent = '👁️ Monitorar';
+        document.getElementById('geo-watch-indicator').classList.remove('active');
+        this._updateStatus('inactive', 'Inativo');
+      },
+
+      /**
+       * Atualiza display com coordenadas
+       */
+      _updateDisplay: function (pos) {
+        document.getElementById('geo-lat').textContent = pos.lat.toFixed(6);
+        document.getElementById('geo-lng').textContent = pos.lng.toFixed(6);
+        document.getElementById('geo-accuracy').textContent = 'Precisão: ' + Math.round(pos.accuracy) + 'm';
+        document.getElementById('geo-timestamp').textContent = 'Atualizado: ' + new Date().toLocaleTimeString();
+      },
+
+      /**
+       * Atualiza badge de status
+       */
+      _updateStatus: function (status, text) {
+        var badge = document.getElementById('geo-status-badge');
+        badge.className = 'geo-status-badge ' + status;
+        badge.textContent = text;
+      }
+    };
+  </script>
+</div>

@@ -1,0 +1,1027 @@
+{
+  "timestamp": "2026-01-25T02:21:31.132774",
+  "project_type": "Environmental Monitoring - Limnology",
+  "target_ecosystem": "Lago Paranoá (Brasília/DF)",
+  "maturity_score": "105.0/100",
+  "deploy_ready": true,
+  "code_stats": {
+    "gs_files": [
+      {
+        "name": "AppDenunciaJob.gs",
+        "lines": 62,
+        "functions": 1,
+        "size": 2137
+      },
+      {
+        "name": "AquiferoService.gs",
+        "lines": 40,
+        "functions": 2,
+        "size": 1449
+      },
+      {
+        "name": "AreaPreservacaoMonitor.gs",
+        "lines": 50,
+        "functions": 1,
+        "size": 1886
+      },
+      {
+        "name": "AsfaltoModel.gs",
+        "lines": 46,
+        "functions": 1,
+        "size": 1924
+      },
+      {
+        "name": "AudienciaPublicaModel.gs",
+        "lines": 42,
+        "functions": 1,
+        "size": 1687
+      },
+      {
+        "name": "backend.gs",
+        "lines": 209,
+        "functions": 11,
+        "size": 6972
+      },
+      {
+        "name": "BackgroundSyncJob.gs",
+        "lines": 51,
+        "functions": 1,
+        "size": 1775
+      },
+      {
+        "name": "BalneabilidadeUsoSoloService.gs",
+        "lines": 886,
+        "functions": 27,
+        "size": 27861
+      },
+      {
+        "name": "BatteryStatusMonitor.gs",
+        "lines": 42,
+        "functions": 1,
+        "size": 1386
+      },
+      {
+        "name": "CacheService.gs",
+        "lines": 41,
+        "functions": 1,
+        "size": 1258
+      },
+      {
+        "name": "CambissoloModel.gs",
+        "lines": 63,
+        "functions": 1,
+        "size": 2554
+      },
+      {
+        "name": "CameraWrapper.gs",
+        "lines": 44,
+        "functions": 1,
+        "size": 1590
+      },
+      {
+        "name": "CianobacteriasRepository.gs",
+        "lines": 100,
+        "functions": 0,
+        "size": 3834
+      },
+      {
+        "name": "CienciaCidadaRepository.gs",
+        "lines": 76,
+        "functions": 1,
+        "size": 3296
+      },
+      {
+        "name": "ClandestinoUtils.gs",
+        "lines": 67,
+        "functions": 1,
+        "size": 3076
+      },
+      {
+        "name": "ClorofilaHandler.gs",
+        "lines": 45,
+        "functions": 1,
+        "size": 1727
+      },
+      {
+        "name": "Code.gs",
+        "lines": 487,
+        "functions": 24,
+        "size": 16166
+      },
+      {
+        "name": "ColabAPIBridge.gs",
+        "lines": 757,
+        "functions": 28,
+        "size": 23560
+      },
+      {
+        "name": "ColabAPIBridge_helpers.gs",
+        "lines": 197,
+        "functions": 4,
+        "size": 12352
+      },
+      {
+        "name": "CondutividadeMonitor.gs",
+        "lines": 53,
+        "functions": 1,
+        "size": 1982
+      },
+      {
+        "name": "ConscientizacaoService.gs",
+        "lines": 81,
+        "functions": 1,
+        "size": 3858
+      },
+      {
+        "name": "CpiUtils.gs",
+        "lines": 51,
+        "functions": 1,
+        "size": 2010
+      },
+      {
+        "name": "DenunciaUtils.gs",
+        "lines": 74,
+        "functions": 1,
+        "size": 2955
+      },
+      {
+        "name": "DrenagemController.gs",
+        "lines": 43,
+        "functions": 1,
+        "size": 1706
+      },
+      {
+        "name": "EducacaoHandler.gs",
+        "lines": 77,
+        "functions": 1,
+        "size": 3380
+      },
+      {
+        "name": "ErosaoJob.gs",
+        "lines": 53,
+        "functions": 1,
+        "size": 2367
+      },
+      {
+        "name": "EsgotoHandler.gs",
+        "lines": 69,
+        "functions": 1,
+        "size": 3268
+      },
+      {
+        "name": "EventoMonitor.gs",
+        "lines": 82,
+        "functions": 1,
+        "size": 3700
+      },
+      {
+        "name": "example_code.gs",
+        "lines": 33,
+        "functions": 2,
+        "size": 1043
+      },
+      {
+        "name": "FiscalizacaoService.gs",
+        "lines": 37,
+        "functions": 1,
+        "size": 1183
+      },
+      {
+        "name": "FosforoService.gs",
+        "lines": 91,
+        "functions": 0,
+        "size": 3761
+      },
+      {
+        "name": "FraturadoHandler.gs",
+        "lines": 48,
+        "functions": 1,
+        "size": 1907
+      },
+      {
+        "name": "GeminiService.gs",
+        "lines": 109,
+        "functions": 0,
+        "size": 4693
+      },
+      {
+        "name": "GeoLocationModel.gs",
+        "lines": 79,
+        "functions": 1,
+        "size": 2789
+      },
+      {
+        "name": "GestureManager.gs",
+        "lines": 56,
+        "functions": 1,
+        "size": 2104
+      },
+      {
+        "name": "ImpermeabilizacaoService.gs",
+        "lines": 133,
+        "functions": 1,
+        "size": 6596
+      },
+      {
+        "name": "ImportadorADASA.gs",
+        "lines": 74,
+        "functions": 5,
+        "size": 1960
+      },
+      {
+        "name": "IndexedDbModel.gs",
+        "lines": 45,
+        "functions": 1,
+        "size": 1291
+      },
+      {
+        "name": "InfiltracaoManager.gs",
+        "lines": 44,
+        "functions": 2,
+        "size": 1711
+      },
+      {
+        "name": "LatossoloRepository.gs",
+        "lines": 74,
+        "functions": 1,
+        "size": 2761
+      },
+      {
+        "name": "LegislacaoManager.gs",
+        "lines": 39,
+        "functions": 1,
+        "size": 1418
+      },
+      {
+        "name": "LicenciamentoMonitor.gs",
+        "lines": 63,
+        "functions": 1,
+        "size": 2887
+      },
+      {
+        "name": "LimnologiaAnalyticsService.gs",
+        "lines": 983,
+        "functions": 40,
+        "size": 34559
+      },
+      {
+        "name": "LocalStorageWrapper.gs",
+        "lines": 40,
+        "functions": 1,
+        "size": 1315
+      },
+      {
+        "name": "LoteamentoManager.gs",
+        "lines": 45,
+        "functions": 1,
+        "size": 1952
+      },
+      {
+        "name": "ManifestManager.gs",
+        "lines": 44,
+        "functions": 1,
+        "size": 1550
+      },
+      {
+        "name": "MobilizacaoController.gs",
+        "lines": 37,
+        "functions": 1,
+        "size": 1494
+      },
+      {
+        "name": "MultaJob.gs",
+        "lines": 49,
+        "functions": 3,
+        "size": 1640
+      },
+      {
+        "name": "NitrogenioController.gs",
+        "lines": 47,
+        "functions": 2,
+        "size": 1551
+      },
+      {
+        "name": "NivelFreaticoWrapper.gs",
+        "lines": 41,
+        "functions": 1,
+        "size": 1645
+      },
+      {
+        "name": "NotificationJob.gs",
+        "lines": 62,
+        "functions": 3,
+        "size": 2332
+      },
+      {
+        "name": "OrientationRepository.gs",
+        "lines": 47,
+        "functions": 1,
+        "size": 1610
+      },
+      {
+        "name": "OutorgaController.gs",
+        "lines": 83,
+        "functions": 1,
+        "size": 3781
+      },
+      {
+        "name": "OxigenioUtils.gs",
+        "lines": 73,
+        "functions": 1,
+        "size": 3169
+      },
+      {
+        "name": "ParticipacaoManager.gs",
+        "lines": 71,
+        "functions": 1,
+        "size": 3174
+      },
+      {
+        "name": "PermeabilidadeMonitor.gs",
+        "lines": 49,
+        "functions": 1,
+        "size": 1836
+      },
+      {
+        "name": "PhModel.gs",
+        "lines": 39,
+        "functions": 1,
+        "size": 1300
+      },
+      {
+        "name": "PoliticaRepository.gs",
+        "lines": 79,
+        "functions": 1,
+        "size": 3233
+      },
+      {
+        "name": "PoluicaoDifusaWrapper.gs",
+        "lines": 44,
+        "functions": 2,
+        "size": 1794
+      },
+      {
+        "name": "PorosoController.gs",
+        "lines": 40,
+        "functions": 1,
+        "size": 1445
+      },
+      {
+        "name": "Processamento.gs",
+        "lines": 79,
+        "functions": 6,
+        "size": 2229
+      },
+      {
+        "name": "ProtocoloWrapper.gs",
+        "lines": 48,
+        "functions": 1,
+        "size": 1781
+      },
+      {
+        "name": "PublicInterface.gs",
+        "lines": 19,
+        "functions": 2,
+        "size": 422
+      },
+      {
+        "name": "PwaUtils.gs",
+        "lines": 66,
+        "functions": 1,
+        "size": 2431
+      },
+      {
+        "name": "QueueUtils.gs",
+        "lines": 70,
+        "functions": 1,
+        "size": 2128
+      },
+      {
+        "name": "RecargaUtils.gs",
+        "lines": 69,
+        "functions": 1,
+        "size": 3148
+      },
+      {
+        "name": "RedeSocialWrapper.gs",
+        "lines": 78,
+        "functions": 1,
+        "size": 3231
+      },
+      {
+        "name": "Relatorios.gs",
+        "lines": 152,
+        "functions": 5,
+        "size": 5028
+      },
+      {
+        "name": "ResponsiveHandler.gs",
+        "lines": 106,
+        "functions": 1,
+        "size": 4594
+      },
+      {
+        "name": "RetryPolicyMonitor.gs",
+        "lines": 46,
+        "functions": 1,
+        "size": 1717
+      },
+      {
+        "name": "SedimentoJob.gs",
+        "lines": 33,
+        "functions": 1,
+        "size": 1330
+      },
+      {
+        "name": "SedimentosMicroplasticosService.gs",
+        "lines": 822,
+        "functions": 29,
+        "size": 29544
+      },
+      {
+        "name": "ServiceWorkerRepository.gs",
+        "lines": 47,
+        "functions": 1,
+        "size": 1408
+      },
+      {
+        "name": "Sheets.gs",
+        "lines": 1668,
+        "functions": 47,
+        "size": 61927
+      },
+      {
+        "name": "StorageHandler.gs",
+        "lines": 64,
+        "functions": 1,
+        "size": 2275
+      },
+      {
+        "name": "SyncController.gs",
+        "lines": 40,
+        "functions": 1,
+        "size": 1507
+      },
+      {
+        "name": "TemperaturaJob.gs",
+        "lines": 40,
+        "functions": 1,
+        "size": 1677
+      },
+      {
+        "name": "Tests.gs",
+        "lines": 288,
+        "functions": 1,
+        "size": 11850
+      },
+      {
+        "name": "TouchService.gs",
+        "lines": 39,
+        "functions": 1,
+        "size": 1254
+      },
+      {
+        "name": "TransparenciaHandler.gs",
+        "lines": 55,
+        "functions": 1,
+        "size": 2272
+      },
+      {
+        "name": "TransparenciaManager.gs",
+        "lines": 148,
+        "functions": 1,
+        "size": 7052
+      },
+      {
+        "name": "trigger.gs",
+        "lines": 70,
+        "functions": 4,
+        "size": 2359
+      },
+      {
+        "name": "TurbidezWrapper.gs",
+        "lines": 47,
+        "functions": 1,
+        "size": 1798
+      },
+      {
+        "name": "UsoSoloRepository.gs",
+        "lines": 77,
+        "functions": 1,
+        "size": 3789
+      },
+      {
+        "name": "Utilidades.gs",
+        "lines": 51,
+        "functions": 4,
+        "size": 1346
+      },
+      {
+        "name": "ViewportController.gs",
+        "lines": 40,
+        "functions": 1,
+        "size": 1432
+      },
+      {
+        "name": "VisualizacaoChartService.gs",
+        "lines": 721,
+        "functions": 20,
+        "size": 23749
+      },
+      {
+        "name": "VoluntariadoModel.gs",
+        "lines": 86,
+        "functions": 1,
+        "size": 3712
+      }
+    ],
+    "html_files": [
+      {
+        "name": "AppDenunciaReport.html",
+        "lines": 646,
+        "size": 19580
+      },
+      {
+        "name": "AquiferoForm.html",
+        "lines": 25,
+        "size": 1199
+      },
+      {
+        "name": "AreaPreservacaoWidget.html",
+        "lines": 19,
+        "size": 861
+      },
+      {
+        "name": "AsfaltoIndicator.html",
+        "lines": 24,
+        "size": 884
+      },
+      {
+        "name": "AudienciaPublicaIndicator.html",
+        "lines": 24,
+        "size": 960
+      },
+      {
+        "name": "BackgroundSyncReport.html",
+        "lines": 17,
+        "size": 580
+      },
+      {
+        "name": "BatteryStatusWidget.html",
+        "lines": 17,
+        "size": 559
+      },
+      {
+        "name": "CacheForm.html",
+        "lines": 18,
+        "size": 545
+      },
+      {
+        "name": "CambissoloIndicator.html",
+        "lines": 25,
+        "size": 931
+      },
+      {
+        "name": "CameraAlert.html",
+        "lines": 23,
+        "size": 894
+      },
+      {
+        "name": "CianobacteriasMap.html",
+        "lines": 21,
+        "size": 836
+      },
+      {
+        "name": "CienciaCidadaMap.html",
+        "lines": 22,
+        "size": 896
+      },
+      {
+        "name": "ClandestinoDashboard.html",
+        "lines": 22,
+        "size": 1049
+      },
+      {
+        "name": "ClorofilaCard.html",
+        "lines": 18,
+        "size": 674
+      },
+      {
+        "name": "CondutividadeWidget.html",
+        "lines": 21,
+        "size": 813
+      },
+      {
+        "name": "Configuracoes.html",
+        "lines": 80,
+        "size": 1959
+      },
+      {
+        "name": "ConscientizacaoForm.html",
+        "lines": 20,
+        "size": 782
+      },
+      {
+        "name": "CpiDashboard.html",
+        "lines": 24,
+        "size": 1128
+      },
+      {
+        "name": "Dashboard.html",
+        "lines": 368,
+        "size": 10267
+      },
+      {
+        "name": "DenunciaDashboard.html",
+        "lines": 20,
+        "size": 656
+      },
+      {
+        "name": "DrenagemView.html",
+        "lines": 43,
+        "size": 1700
+      },
+      {
+        "name": "EducacaoCard.html",
+        "lines": 24,
+        "size": 1015
+      },
+      {
+        "name": "ErosaoReport.html",
+        "lines": 43,
+        "size": 1826
+      },
+      {
+        "name": "EsgotoCard.html",
+        "lines": 21,
+        "size": 799
+      },
+      {
+        "name": "EventoWidget.html",
+        "lines": 21,
+        "size": 805
+      },
+      {
+        "name": "FiscalizacaoForm.html",
+        "lines": 23,
+        "size": 737
+      },
+      {
+        "name": "FosforoForm.html",
+        "lines": 28,
+        "size": 1157
+      },
+      {
+        "name": "FraturadoCard.html",
+        "lines": 21,
+        "size": 910
+      },
+      {
+        "name": "GeoLocationIndicator.html",
+        "lines": 350,
+        "size": 9073
+      },
+      {
+        "name": "GesturePanel.html",
+        "lines": 40,
+        "size": 1798
+      },
+      {
+        "name": "ImpermeabilizacaoForm.html",
+        "lines": 27,
+        "size": 1026
+      },
+      {
+        "name": "Index.html",
+        "lines": 605,
+        "size": 25423
+      },
+      {
+        "name": "IndexedDbIndicator.html",
+        "lines": 17,
+        "size": 564
+      },
+      {
+        "name": "InfiltracaoPanel.html",
+        "lines": 22,
+        "size": 830
+      },
+      {
+        "name": "JavaScript.html",
+        "lines": 565,
+        "size": 17589
+      },
+      {
+        "name": "LatossoloMap.html",
+        "lines": 18,
+        "size": 741
+      },
+      {
+        "name": "LegislacaoPanel.html",
+        "lines": 21,
+        "size": 640
+      },
+      {
+        "name": "LicenciamentoWidget.html",
+        "lines": 22,
+        "size": 878
+      },
+      {
+        "name": "LocalStorageAlert.html",
+        "lines": 17,
+        "size": 558
+      },
+      {
+        "name": "LoteamentoPanel.html",
+        "lines": 54,
+        "size": 2383
+      },
+      {
+        "name": "ManifestPanel.html",
+        "lines": 17,
+        "size": 537
+      },
+      {
+        "name": "maturity_report.html",
+        "lines": 195,
+        "size": 6364
+      },
+      {
+        "name": "MenuPrincipal.html",
+        "lines": 429,
+        "size": 14810
+      },
+      {
+        "name": "MobilizacaoView.html",
+        "lines": 22,
+        "size": 959
+      },
+      {
+        "name": "MultaReport.html",
+        "lines": 57,
+        "size": 2102
+      },
+      {
+        "name": "NitrogenioView.html",
+        "lines": 22,
+        "size": 837
+      },
+      {
+        "name": "NivelFreaticoAlert.html",
+        "lines": 18,
+        "size": 798
+      },
+      {
+        "name": "NotificationReport.html",
+        "lines": 21,
+        "size": 711
+      },
+      {
+        "name": "OrientationMap.html",
+        "lines": 17,
+        "size": 562
+      },
+      {
+        "name": "OutorgaView.html",
+        "lines": 21,
+        "size": 696
+      },
+      {
+        "name": "OxigenioDashboard.html",
+        "lines": 18,
+        "size": 695
+      },
+      {
+        "name": "ParticipacaoPanel.html",
+        "lines": 45,
+        "size": 1999
+      },
+      {
+        "name": "PermeabilidadeWidget.html",
+        "lines": 80,
+        "size": 4408
+      },
+      {
+        "name": "PhIndicator.html",
+        "lines": 18,
+        "size": 770
+      },
+      {
+        "name": "PoliticaMap.html",
+        "lines": 21,
+        "size": 884
+      },
+      {
+        "name": "PoluicaoDifusaAlert.html",
+        "lines": 22,
+        "size": 876
+      },
+      {
+        "name": "PorosoView.html",
+        "lines": 24,
+        "size": 810
+      },
+      {
+        "name": "ProtocoloAlert.html",
+        "lines": 24,
+        "size": 897
+      },
+      {
+        "name": "PwaDashboard.html",
+        "lines": 18,
+        "size": 605
+      },
+      {
+        "name": "QueueDashboard.html",
+        "lines": 20,
+        "size": 649
+      },
+      {
+        "name": "RecargaDashboard.html",
+        "lines": 21,
+        "size": 816
+      },
+      {
+        "name": "RedeSocialAlert.html",
+        "lines": 21,
+        "size": 772
+      },
+      {
+        "name": "ResponsiveCard.html",
+        "lines": 17,
+        "size": 548
+      },
+      {
+        "name": "RetryPolicyWidget.html",
+        "lines": 17,
+        "size": 562
+      },
+      {
+        "name": "SedimentoReport.html",
+        "lines": 66,
+        "size": 3442
+      },
+      {
+        "name": "ServiceWorkerMap.html",
+        "lines": 18,
+        "size": 674
+      },
+      {
+        "name": "Sobre.html",
+        "lines": 43,
+        "size": 969
+      },
+      {
+        "name": "StorageCard.html",
+        "lines": 18,
+        "size": 603
+      },
+      {
+        "name": "Stylesheet.html",
+        "lines": 883,
+        "size": 22085
+      },
+      {
+        "name": "SyncView.html",
+        "lines": 21,
+        "size": 693
+      },
+      {
+        "name": "TemperaturaReport.html",
+        "lines": 21,
+        "size": 848
+      },
+      {
+        "name": "TouchForm.html",
+        "lines": 37,
+        "size": 1180
+      },
+      {
+        "name": "TransparenciaCard.html",
+        "lines": 22,
+        "size": 781
+      },
+      {
+        "name": "TransparenciaPanel.html",
+        "lines": 21,
+        "size": 773
+      },
+      {
+        "name": "TurbidezAlert.html",
+        "lines": 28,
+        "size": 2424
+      },
+      {
+        "name": "UsoSoloMap.html",
+        "lines": 21,
+        "size": 906
+      },
+      {
+        "name": "ViewportView.html",
+        "lines": 84,
+        "size": 3936
+      },
+      {
+        "name": "VoluntariadoIndicator.html",
+        "lines": 21,
+        "size": 965
+      }
+    ],
+    "json_files": [
+      {
+        "name": ".clasp.json",
+        "valid": true,
+        "keys": [
+          "scriptId",
+          "rootDir"
+        ],
+        "size": 97
+      },
+      {
+        "name": "appsscript.json",
+        "valid": true,
+        "keys": [
+          "timeZone",
+          "dependencies",
+          "exceptionLogging",
+          "runtimeVersion",
+          "webapp"
+        ],
+        "size": 259
+      },
+      {
+        "name": "config.json",
+        "valid": true,
+        "keys": [
+          "project",
+          "tools",
+          "execution",
+          "output",
+          "quality_thresholds",
+          "gas_project",
+          "colab_integration"
+        ],
+        "size": 4142
+      },
+      {
+        "name": "package.json",
+        "valid": true,
+        "keys": [
+          "name",
+          "version",
+          "description",
+          "main",
+          "scripts",
+          "author",
+          "license",
+          "devDependencies"
+        ],
+        "size": 1434
+      },
+      {
+        "name": "project_analysis.json",
+        "valid": true,
+        "keys": [
+          "timestamp",
+          "project_type",
+          "target_ecosystem",
+          "maturity_score",
+          "deploy_ready",
+          "code_stats",
+          "insights_count",
+          "recommendations"
+        ],
+        "size": 25404
+      }
+    ],
+    "total_lines": 17680,
+    "total_functions": 335
+  },
+  "insights_count": 4,
+  "recommendations": [
+    {
+      "category": "Qualidade",
+      "priority": "HIGH",
+      "message": "Ausência de testes automatizados",
+      "suggestion": "Criar diretório tests/ com testes unitários usando QUnit ou similar"
+    },
+    {
+      "category": "Segurança",
+      "priority": "HIGH",
+      "message": "Arquivo .env não encontrado",
+      "suggestion": "Criar .env para armazenar credenciais e configurações sensíveis"
+    },
+    {
+      "category": "Estrutura",
+      "priority": "MEDIUM",
+      "message": "Sheets.gs tem 1667 linhas (muito grande)",
+      "suggestion": "Considere refatorar Sheets.gs em módulos menores e mais focados"
+    },
+    {
+      "category": "Segurança",
+      "priority": "MEDIUM",
+      "message": "Arquivos sensíveis não estão no .gitignore: credentials, secrets",
+      "suggestion": "Adicionar ao .gitignore: credentials, secrets"
+    }
+  ]
+}

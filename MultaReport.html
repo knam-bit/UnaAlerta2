@@ -1,0 +1,57 @@
+<!--
+/**
+ * @file MultaReport.html
+ * @project Monitoramento Lago Paranoá
+ * @category governanca
+ * @tags multa, governanca, ui
+ * @architecture Mobile-First, Offline-First
+ * @description Componente gerado para monitoramento de indicadores e conscientização civil.
+ * @context Relatorio.md - Dinâmica Limnológica e Governança do Lago Paranoá
+ */
+-->
+
+<div class='component' id='MultaReport'>
+  <style>
+    .infraction-list { list-style: none; padding: 0; }
+    .infraction-item { border-bottom: 1px solid #eee; padding: 10px 0; display: flex; justify-content: space-between; align-items: center; }
+    .status-badge { font-size: 0.75rem; padding: 3px 8px; border-radius: 12px; }
+    .status-open { background: #ffebee; color: #c62828; }
+    .status-resolved { background: #e8f5e9; color: #2e7d32; }
+    .fine-amount { font-weight: bold; color: #555; }
+  </style>
+
+  <h3>Ocorrências e Multas Ambientais</h3>
+  <p class="context-note">Transparência na Fiscalização (Relatorio.md - Seção 7.1)</p>
+  
+  <div class="filters">
+    <select id="agency-filter" onchange="filterInfractions()">
+      <option value="ALL">Todos os Órgãos</option>
+      <option value="ADASA">ADASA (Recursos Hídricos)</option>
+      <option value="IBRAM">IBRAM (Ambiental)</option>
+      <option value="DF_LEGAL">DF Legal (Ocupação)</option>
+    </select>
+  </div>
+
+  <ul class="infraction-list">
+    <li class="infraction-item">
+      <div>
+        <strong>Captação Ilegal (Irrigação)</strong><br>
+        <small>Lago Norte - Outorga Vencida</small>
+      </div>
+      <div>
+        <span class="fine-amount">R$ 15.000</span><br>
+        <span class="status-badge status-open">EM ABERTO</span>
+      </div>
+    </li>
+    <li class="infraction-item">
+      <div>
+        <strong>Intervenção em APP (Muro)</strong><br>
+        <small>Ponta de Picolé - QL 12</small>
+      </div>
+      <div>
+        <span class="fine-amount">R$ 5.000</span><br>
+        <span class="status-badge status-resolved">DEMOLIDO</span>
+      </div>
+    </li>
+  </ul>
+</div>

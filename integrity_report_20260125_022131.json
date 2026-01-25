@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-01-25T02:21:31.748016",
+  "checks_passed": 6,
+  "checks_failed": 0,
+  "success_rate": 100.0,
+  "issues": [],
+  "warnings": [
+    {
+      "category": "Estrutura",
+      "message": "Diretorios opcionais nao encontrados: tests, docs",
+      "severity": "WARNING",
+      "timestamp": "2026-01-25T02:21:31.717017"
+    }
+  ]
+}

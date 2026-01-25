@@ -1,0 +1,21 @@
+<!--
+/**
+ * @file SyncView.html
+ * @project Monitoramento Lago Paranoá
+ * @category offline
+ * @tags sync, offline, ui
+ * @architecture Mobile-First, Offline-First
+ * @description Componente gerado para monitoramento de indicadores e conscientização civil.
+ * @context Relatorio.md - Dinâmica Limnológica e Governança do Lago Paranoá
+ */
+-->
+
+<div class='component' id='SyncView'>
+  <!-- Mobile-first UI -->
+  <h3>Sincronização de Dados</h3>
+  <p>Status da replicação offline-first.</p>
+  <div class="sync-status">
+    <span>Pendente: <span id="pending-count">0</span> registros</span>
+    <button onclick="forceSync()">Sincronizar Agora</button>
+  </div>
+</div>

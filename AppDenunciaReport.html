@@ -1,0 +1,646 @@
+<!--
+/**
+ * @file AppDenunciaReport.html
+ * @project Monitoramento Lago Paranoá
+ * @category sociedade
+ * @tags app_denuncia, sociedade, ui
+ * @architecture Mobile-First, Offline-First
+ * @description Componente de denúncia ambiental com GPS real
+ * @context Relatorio.md - Dinâmica Limnológica e Governança do Lago Paranoá
+ * @version 2.0 - GPS real otimizado para Samsung S20 / Comet Browser
+ */
+-->
+
+<div class='component' id='AppDenunciaReport'>
+  <style>
+    .report-type-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .type-card {
+      border: 2px solid #e5e7eb;
+      padding: 16px 12px;
+      text-align: center;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: white;
+    }
+
+    .type-card:hover {
+      border-color: #9ca3af;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .type-card.selected {
+      border-color: #dc2626;
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      color: #dc2626;
+    }
+
+    .type-card .type-icon {
+      font-size: 2.2rem;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .type-card .type-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* GPS Capture Section */
+    .gps-capture-section {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px;
+      margin: 16px 0;
+    }
+
+    .gps-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 14px 20px;
+      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .gps-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+    }
+
+    .gps-btn:active {
+      transform: scale(0.98);
+    }
+
+    .gps-btn:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .gps-btn .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .gps-result {
+      margin-top: 12px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    .gps-result.visible {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .gps-result.loading {
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fbbf24;
+    }
+
+    .gps-result.success {
+      background: #d1fae5;
+      color: #065f46;
+      border: 1px solid #10b981;
+    }
+
+    .gps-result.error {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #ef4444;
+    }
+
+    .gps-coords {
+      font-family: 'SF Mono', 'Roboto Mono', monospace;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .gps-accuracy {
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
+
+    /* Manual Input Fields */
+    .manual-coords-section {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    .manual-toggle {
+      background: none;
+      border: none;
+      color: #6b7280;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 0;
+    }
+
+    .manual-toggle:hover {
+      color: #3b82f6;
+    }
+
+    .manual-inputs {
+      display: none;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .manual-inputs.visible {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .coord-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .coord-input-group label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #4b5563;
+    }
+
+    .coord-input {
+      padding: 10px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: 'SF Mono', 'Roboto Mono', monospace;
+    }
+
+    .coord-input:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    }
+
+    /* Description Textarea */
+    .description-textarea {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      resize: vertical;
+      min-height: 80px;
+      transition: border-color 0.2s ease;
+      margin-bottom: 16px;
+    }
+
+    .description-textarea:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    }
+
+    /* Submit Button */
+    .submit-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 16px 24px;
+      background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+    }
+
+    .submit-btn:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* Region Warning */
+    .region-warning {
+      display: none;
+      background: #fef3c7;
+      border: 1px solid #fbbf24;
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: #92400e;
+    }
+
+    .region-warning.visible {
+      display: block;
+    }
+  </style>
+
+  <h3>📢 Realizar Denúncia Ambiental</h3>
+  <p class="context-note">Canal direto para fiscalização ADASA/IBRAM (Seção 7.1)</p>
+
+  <!-- Tipo de Ocorrência -->
+  <div class="report-type-grid" id="report-types">
+    <div class="type-card" onclick="DenunciaApp.selectType(this, 'ESGOTO')">
+      <span class="type-icon">🚽</span>
+      <span class="type-label">Esgoto / Odor</span>
+    </div>
+    <div class="type-card" onclick="DenunciaApp.selectType(this, 'ORLA')">
+      <span class="type-icon">🚧</span>
+      <span class="type-label">Ocupação Orla</span>
+    </div>
+    <div class="type-card" onclick="DenunciaApp.selectType(this, 'ALGAS')">
+      <span class="type-icon">🤢</span>
+      <span class="type-label">Mancha Verde</span>
+    </div>
+    <div class="type-card" onclick="DenunciaApp.selectType(this, 'PEIXES')">
+      <span class="type-icon">🐟</span>
+      <span class="type-label">Peixes Mortos</span>
+    </div>
+    <div class="type-card" onclick="DenunciaApp.selectType(this, 'LIXO')">
+      <span class="type-icon">🗑️</span>
+      <span class="type-label">Lixo Flutuante</span>
+    </div>
+    <div class="type-card" onclick="DenunciaApp.selectType(this, 'OLEO')">
+      <span class="type-icon">🛢️</span>
+      <span class="type-label">Mancha de Óleo</span>
+    </div>
+  </div>
+
+  <!-- Descrição -->
+  <textarea class="description-textarea" id="denuncia-descricao" rows="3"
+    placeholder="Descreva a ocorrência (ex: Tubulação despejando água escura próximo ao píer)..."></textarea>
+
+  <!-- Captura de GPS -->
+  <div class="gps-capture-section">
+    <button class="gps-btn" id="gps-btn" onclick="DenunciaApp.captureLocation()">
+      <span id="gps-btn-icon">📍</span>
+      <span id="gps-btn-text">Capturar Localização (GPS)</span>
+    </button>
+
+    <div class="gps-result" id="gps-result">
+      <span id="gps-status-icon">📍</span>
+      <div>
+        <div class="gps-coords" id="gps-coords">--</div>
+        <div class="gps-accuracy" id="gps-accuracy">--</div>
+      </div>
+    </div>
+
+    <div class="region-warning" id="region-warning">
+      ⚠️ Esta localização parece estar fora da região do Lago Paranoá. Verifique as coordenadas.
+    </div>
+
+    <!-- Entrada Manual -->
+    <div class="manual-coords-section">
+      <button class="manual-toggle" id="manual-toggle" onclick="DenunciaApp.toggleManualInput()">
+        ✏️ <span id="manual-toggle-text">Inserir coordenadas manualmente</span>
+      </button>
+
+      <div class="manual-inputs" id="manual-inputs">
+        <div class="coord-input-group">
+          <label for="manual-lat">Latitude</label>
+          <input type="number" class="coord-input" id="manual-lat" placeholder="-15.7942" step="0.0001" min="-16"
+            max="-15" onchange="DenunciaApp.onManualCoordsChange()">
+        </div>
+        <div class="coord-input-group">
+          <label for="manual-lng">Longitude</label>
+          <input type="number" class="coord-input" id="manual-lng" placeholder="-47.8822" step="0.0001" min="-48"
+            max="-47" onchange="DenunciaApp.onManualCoordsChange()">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="submit-btn" id="submit-btn" onclick="DenunciaApp.submitReport()">
+    📤 Enviar para ADASA/IBRAM
+  </button>
+
+  <script>
+    /**
+     * DenunciaApp - Módulo de Denúncia Ambiental
+     * Otimizado para Samsung S20 / Comet Browser
+     */
+    var DenunciaApp = {
+      _selectedType: null,
+      _capturedCoords: null,
+      _isCapturing: false,
+
+      /**
+       * Seleciona tipo de denúncia
+       */
+      selectType: function (el, type) {
+        document.querySelectorAll('.type-card').forEach(function (c) {
+          c.classList.remove('selected');
+        });
+        el.classList.add('selected');
+        this._selectedType = type;
+
+        // Feedback visual
+        if (typeof UIHelper !== 'undefined') {
+          UIHelper.vibrate([30]);
+        }
+      },
+
+      /**
+       * Captura localização GPS real
+       */
+      captureLocation: function () {
+        var self = this;
+
+        if (this._isCapturing) return;
+
+        // Verifica se GPSHelper está disponível
+        if (typeof GPSHelper === 'undefined') {
+          this._showGPSResult('error', 'GPS não disponível', 'Recarregue a página');
+          return;
+        }
+
+        if (!GPSHelper.isSupported()) {
+          this._showGPSResult('error', 'GPS não suportado', 'Use entrada manual');
+          this.toggleManualInput();
+          return;
+        }
+
+        // Inicia captura
+        this._isCapturing = true;
+        this._setButtonLoading(true);
+        this._showGPSResult('loading', 'Obtendo localização...', 'Aguarde');
+
+        GPSHelper.getCurrentPosition(
+          function (position) {
+            self._isCapturing = false;
+            self._setButtonLoading(false);
+            self._capturedCoords = position;
+
+            var coordsText = GPSHelper.formatCoords(position.lat, position.lng, 4);
+            var accuracyText = 'Precisão: ' + Math.round(position.accuracy) + 'm';
+
+            self._showGPSResult('success', coordsText, accuracyText);
+
+            // Verifica se está na região
+            if (!GPSHelper.isInLagoParanoaRegion(position.lat, position.lng)) {
+              document.getElementById('region-warning').classList.add('visible');
+            } else {
+              document.getElementById('region-warning').classList.remove('visible');
+            }
+
+            // Atualiza campos manuais também
+            document.getElementById('manual-lat').value = position.lat.toFixed(6);
+            document.getElementById('manual-lng').value = position.lng.toFixed(6);
+
+            // Feedback
+            if (typeof UIHelper !== 'undefined') {
+              UIHelper.vibrate([50, 30, 50]);
+              UIHelper.showToast('Localização capturada!', 'success', 2000);
+            }
+          },
+          function (error) {
+            self._isCapturing = false;
+            self._setButtonLoading(false);
+            self._showGPSResult('error', error.message, 'Tente novamente ou use entrada manual');
+
+            if (typeof UIHelper !== 'undefined') {
+              UIHelper.showToast(error.message, 'error', 4000);
+            }
+          },
+          { timeout: 15000, highAccuracy: true }
+        );
+      },
+
+      /**
+       * Alterna exibição de entrada manual
+       */
+      toggleManualInput: function () {
+        var inputs = document.getElementById('manual-inputs');
+        var toggleText = document.getElementById('manual-toggle-text');
+
+        if (inputs.classList.contains('visible')) {
+          inputs.classList.remove('visible');
+          toggleText.textContent = 'Inserir coordenadas manualmente';
+        } else {
+          inputs.classList.add('visible');
+          toggleText.textContent = 'Ocultar entrada manual';
+
+          // Foca no primeiro campo
+          setTimeout(function () {
+            document.getElementById('manual-lat').focus();
+          }, 100);
+        }
+      },
+
+      /**
+       * Quando coords manuais mudam
+       */
+      onManualCoordsChange: function () {
+        var lat = parseFloat(document.getElementById('manual-lat').value);
+        var lng = parseFloat(document.getElementById('manual-lng').value);
+
+        if (!isNaN(lat) && !isNaN(lng)) {
+          this._capturedCoords = { lat: lat, lng: lng, accuracy: 0, manual: true };
+
+          var coordsText = lat.toFixed(6) + ', ' + lng.toFixed(6);
+          this._showGPSResult('success', coordsText, 'Entrada manual');
+
+          // Verifica região
+          if (typeof GPSHelper !== 'undefined' && !GPSHelper.isInLagoParanoaRegion(lat, lng)) {
+            document.getElementById('region-warning').classList.add('visible');
+          } else {
+            document.getElementById('region-warning').classList.remove('visible');
+          }
+        }
+      },
+
+      /**
+       * Envia denúncia
+       */
+      submitReport: function () {
+        var self = this;
+
+        // Validações
+        if (!this._selectedType) {
+          if (typeof UIHelper !== 'undefined') {
+            UIHelper.showToast('Selecione o tipo de ocorrência', 'warning');
+          } else {
+            alert('Selecione o tipo de ocorrência');
+          }
+          return;
+        }
+
+        if (!this._capturedCoords) {
+          if (typeof UIHelper !== 'undefined') {
+            UIHelper.showToast('Capture a localização GPS', 'warning');
+          } else {
+            alert('Capture a localização GPS');
+          }
+          return;
+        }
+
+        var descricao = document.getElementById('denuncia-descricao').value;
+
+        // Prepara dados
+        var report = {
+          tipo: this._selectedType,
+          descricao: descricao,
+          latitude: this._capturedCoords.lat,
+          longitude: this._capturedCoords.lng,
+          precisao: this._capturedCoords.accuracy,
+          entradaManual: this._capturedCoords.manual || false,
+          timestamp: new Date().toISOString()
+        };
+
+        // Desabilita botão
+        var submitBtn = document.getElementById('submit-btn');
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="spinner" style="width:18px;height:18px;border:2px solid rgba(255,255,255,0.3);border-top-color:white;border-radius:50%;animation:spin 0.8s linear infinite;"></span> Enviando...';
+
+        // Envia para backend (se disponível)
+        if (typeof google !== 'undefined' && google.script && google.script.run) {
+          google.script.run
+            .withSuccessHandler(function (msg) {
+              self._onSubmitSuccess(msg);
+            })
+            .withFailureHandler(function (error) {
+              self._onSubmitError(error);
+            })
+            .submitOccurrence({
+              midia: report.latitude + ',' + report.longitude,
+              indicador: report.tipo,
+              valor: report.descricao,
+              precisao: report.precisao
+            });
+        } else {
+          // Simula envio
+          setTimeout(function () {
+            self._onSubmitSuccess('Denúncia registrada com sucesso! (Simulação)');
+          }, 1000);
+        }
+      },
+
+      _onSubmitSuccess: function (msg) {
+        var submitBtn = document.getElementById('submit-btn');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '📤 Enviar para ADASA/IBRAM';
+
+        if (typeof UIHelper !== 'undefined') {
+          UIHelper.showToast(msg || 'Denúncia enviada!', 'success', 4000);
+          UIHelper.vibrate([100, 50, 100]);
+        } else {
+          alert(msg || 'Denúncia enviada!');
+        }
+
+        // Limpa formulário
+        this._resetForm();
+      },
+
+      _onSubmitError: function (error) {
+        var submitBtn = document.getElementById('submit-btn');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '📤 Enviar para ADASA/IBRAM';
+
+        if (typeof UIHelper !== 'undefined') {
+          UIHelper.showToast('Erro: ' + (error.message || error), 'error', 4000);
+        } else {
+          alert('Erro: ' + (error.message || error));
+        }
+      },
+
+      _resetForm: function () {
+        this._selectedType = null;
+        this._capturedCoords = null;
+
+        document.querySelectorAll('.type-card').forEach(function (c) {
+          c.classList.remove('selected');
+        });
+
+        document.getElementById('denuncia-descricao').value = '';
+        document.getElementById('manual-lat').value = '';
+        document.getElementById('manual-lng').value = '';
+        document.getElementById('gps-result').classList.remove('visible');
+        document.getElementById('region-warning').classList.remove('visible');
+      },
+
+      _setButtonLoading: function (loading) {
+        var btn = document.getElementById('gps-btn');
+        var icon = document.getElementById('gps-btn-icon');
+        var text = document.getElementById('gps-btn-text');
+
+        if (loading) {
+          btn.disabled = true;
+          icon.innerHTML = '<span class="spinner"></span>';
+          text.textContent = 'Obtendo localização...';
+        } else {
+          btn.disabled = false;
+          icon.textContent = '📍';
+          text.textContent = 'Capturar Localização (GPS)';
+        }
+      },
+
+      _showGPSResult: function (status, coords, accuracy) {
+        var result = document.getElementById('gps-result');
+        var icon = document.getElementById('gps-status-icon');
+        var coordsEl = document.getElementById('gps-coords');
+        var accuracyEl = document.getElementById('gps-accuracy');
+
+        result.className = 'gps-result visible ' + status;
+
+        switch (status) {
+          case 'loading':
+            icon.textContent = '⏳';
+            break;
+          case 'success':
+            icon.textContent = '✅';
+            break;
+          case 'error':
+            icon.textContent = '❌';
+            break;
+        }
+
+        coordsEl.textContent = coords;
+        accuracyEl.textContent = accuracy;
+      }
+    };
+  </script>
+</div>

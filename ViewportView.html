@@ -1,0 +1,84 @@
+<!--
+/**
+ * @file ViewportView.html
+ * @project Monitoramento Lago Paranoá
+ * @category mobile
+ * @tags viewport, mobile, ui
+ * @architecture Mobile-First, Offline-First
+ * @description Componente gerado para monitoramento de indicadores e conscientização civil.
+ * @context Relatorio.md - Dinâmica Limnológica e Governança do Lago Paranoá
+ */
+-->
+
+<div class='component' id='ViewportView'>
+  <style>
+    .viewport-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; padding: 15px; }
+    
+    /* Specific tweak for small mobiles (S20, iPhone Mini) */
+    @media (max-width: 400px) {
+      .viewport-grid { padding: 10px; gap: 10px; grid-template-columns: 1fr; }
+      .dashboard-card { padding: 12px; }
+    }
+
+    /* Herda estilos base de .card do Stylesheet.html mas adiciona especificidades */
+    .dashboard-card { 
+      background: var(--glass-bg); 
+      border-radius: 12px; 
+      padding: 16px; 
+      box-shadow: var(--glass-shadow);
+      border-left: 5px solid var(--primary-color);
+      cursor: pointer; 
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    .dashboard-card:hover { transform: translateY(-4px); box-shadow: 0 12px 20px rgba(0,0,0,0.1); }
+    .card-title { font-weight: 700; display: flex; align-items: center; margin-bottom: 8px; color: var(--text-main); font-size: 0.95rem; }
+    .card-metric { font-size: 1.6rem; font-weight: 800; color: var(--text-main); margin: 5px 0; }
+    .card-context { font-size: 0.85rem; color: var(--text-muted); line-height: 1.4; }
+  </style>
+
+  <!-- Mobile-first UI for main navigation -->
+  <div class="viewport-header" style="background: var(--primary-gradient); color: white; padding: 20px 15px; border-radius: 0 0 16px 16px; margin-bottom: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+    <h3 style="margin:0; font-size: 1.2rem;">Monitoramento Integrado</h3>
+    <small style="opacity:0.9;">Bacia do Lago Paranoá (Relatório Técnico Seção 8)</small>
+  </div>
+
+  <div class="viewport-grid">
+    <!-- Card 1: Eutrofização -->
+    <div class="dashboard-card" onclick="openSection('limnologia')" style="border-left-color: var(--danger-color);">
+      <span class="card-title"><span class="status-dot alert"></span> Risco de Bloom</span>
+      <div class="card-metric">Histerese Ativa</div>
+      <div class="card-context">Carga Interna de P (Fundo) > Carga Externa</div>
+    </div>
+
+    <!-- Card 2: Governança/Denúncia -->
+    <div class="dashboard-card" style="border-left-color: var(--accent-color);" onclick="openSection('denuncias')">
+      <span class="card-title"><span class="status-dot active"></span> Orla Livre</span>
+      <div class="card-metric">Fiscalização</div>
+      <div class="card-context">Reportar cercas em APP (Decisão TJDFT)</div>
+    </div>
+
+    <!-- Card 3: Hidrogeologia -->
+    <div class="dashboard-card" style="border-left-color: var(--warning-color);" onclick="openSection('recarga')">
+       <span class="card-title"><span class="status-dot warning"></span> Vulnerabilidade</span>
+       <div class="card-metric">Latossolo</div>
+       <div class="card-context">Áreas de Recarga vs Impermeabilização</div>
+    </div>
+    
+    <!-- Card 4: Microplásticos -->
+    <div class="dashboard-card" style="border-left-color: var(--text-muted);" onclick="openSection('micropoluentes')">
+       <span class="card-title"><span class="status-dot"></span> Antropoceno</span>
+       <div class="card-metric">Microplásticos</div>
+       <div class="card-context">Fibras Sintéticas (Lavagem de Roupas)</div>
+    </div>
+  </div>
+  
+  <script>
+    function openSection(sectionId) {
+      console.log('Navigating to: ' + sectionId);
+      // Integration hook for GAS
+      if(google && google.script) {
+         google.script.run.logNavigationEvent(sectionId);
+      }
+    }
+  </script>
+</div>

@@ -1,0 +1,129 @@
+{
+    "project": {
+        "name": "Lago Paranoá - Sistema de Monitoramento Ambiental",
+        "version": "2.0.0",
+        "description": "Sistema integrado de governança hídrica para monitoramento do Lago Paranoá (ADASA/CAESB/IBRAM)",
+        "author": "Equipe de Gestão Ambiental",
+        "type": "Google Apps Script + Colab Integration",
+        "target_ecosystem": "Lago Paranoá (Brasília/DF)"
+    },
+    "tools": [
+        {
+            "name": "auto_fix",
+            "script": "auto_fix.py",
+            "description": "Correção automática de problemas comuns no projeto",
+            "enabled": true,
+            "timeout": 120,
+            "priority": 1,
+            "category": "maintenance"
+        },
+        {
+            "name": "fix_structure",
+            "script": "fix_structure.py",
+            "description": "Correção da estrutura de diretórios",
+            "enabled": true,
+            "timeout": 60,
+            "priority": 2,
+            "category": "maintenance"
+        },
+        {
+            "name": "validate_integrity",
+            "script": "validate_integrity.py",
+            "description": "Validação de integridade do projeto",
+            "enabled": true,
+            "timeout": 120,
+            "priority": 3,
+            "category": "validation"
+        },
+        {
+            "name": "test_navigation_semantics",
+            "script": "test_navigation_semantics.py",
+            "description": "Testes de navegação e semântica do projeto",
+            "enabled": true,
+            "timeout": 90,
+            "priority": 4,
+            "category": "validation"
+        },
+        {
+            "name": "check_maturity",
+            "script": "check_maturity.py",
+            "description": "Verificação de maturidade do código",
+            "enabled": true,
+            "timeout": 120,
+            "priority": 5,
+            "category": "quality"
+        },
+        {
+            "name": "analyze_project",
+            "script": "analyze_project.py",
+            "description": "Análise completa do projeto",
+            "enabled": true,
+            "timeout": 180,
+            "priority": 6,
+            "category": "analysis"
+        },
+        {
+            "name": "gas_code_reviewer",
+            "script": "gas_code_reviewer.py",
+            "description": "Revisão de código Google Apps Script",
+            "enabled": true,
+            "timeout": 180,
+            "priority": 7,
+            "category": "quality",
+            "requires_gas_files": true
+        },
+        {
+            "name": "test_workflows",
+            "script": "test_workflows.py",
+            "description": "Testes de fluxos de trabalho",
+            "enabled": true,
+            "timeout": 300,
+            "priority": 8,
+            "category": "testing"
+        }
+    ],
+    "execution": {
+        "default_timeout": 120,
+        "max_parallel_workers": 2,
+        "verbose": false,
+        "generate_html_report": true,
+        "generate_json_report": true,
+        "fail_fast": false,
+        "retry_on_failure": false
+    },
+    "output": {
+        "directory": "results",
+        "log_directory": "logs",
+        "keep_reports_days": 30,
+        "html_template": "modern"
+    },
+    "quality_thresholds": {
+        "min_maturity_score": 80,
+        "min_quality_score": 85,
+        "max_issues_per_100_lines": 5,
+        "min_comment_ratio": 10,
+        "min_test_coverage": 70
+    },
+    "gas_project": {
+        "script_id": "SEU_SCRIPT_ID_AQUI",
+        "required_files": [
+            "ColabAPIBridge.gs",
+            "appsscript.json"
+        ],
+        "optional_files": [
+            ".clasp.json",
+            ".claspignore"
+        ]
+    },
+    "colab_integration": {
+        "notebook_file": "colab.ipynb",
+        "python_script": "colab.py",
+        "required_libraries": [
+            "pandas",
+            "numpy",
+            "matplotlib",
+            "scipy"
+        ],
+        "drive_folder_id": "1kEJZHGeaPM6hKr66u3A1GgIVEgAPGnd6"
+    }
+}

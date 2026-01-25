@@ -1,0 +1,66 @@
+<!--
+/**
+ * @file SedimentoReport.html
+ * @project Monitoramento Lago Paranoá
+ * @category urbanizacao
+ * @tags sedimento, urbanizacao, ui
+ * @architecture Mobile-First, Offline-First
+ * @description Componente gerado para monitoramento de indicadores e conscientização civil.
+ * @context Relatorio.md - Dinâmica Limnológica e Governança do Lago Paranoá
+ */
+-->
+
+<div class='component' id='SedimentoReport'>
+  <style>
+    .sediment-card { border-left: 4px solid #795548; background: #fff; padding: 15px; margin-bottom: 10px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
+    .risk-high { color: #d32f2f; font-weight: bold; }
+    .risk-medium { color: #f57c00; }
+    .microplastic-tag { background: #E1F5FE; color: #0277BD; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; }
+  </style>
+
+  <h3>Relatório de Sedimentos (Arquivo do Antropoceno)</h3>
+  <p class="context-note">Contexto: Relatorio.md - Seções 4.1 (Carga Interna) e 6.1 (Microplásticos)</p>
+  
+  <div id="sediment-dashboard">
+    <!-- Dynamic Content Loaded via GAS -->
+    <div class="sediment-card" id="initial-state">
+      <h4>Zona: Braço do Riacho Fundo</h4>
+      <p><strong>Carga Interna de Fósforo (P):</strong> <span class="risk-high">CRÍTICO</span></p>
+      <p><small>Potencial Redox: -150mV (Anoxia Ativa)</small></p>
+      <div class="bar-container" style="background:#eee; height:10px; width:100%; border-radius:5px; margin:5px 0;">
+         <div style="background:#d32f2f; width:85%; height:100%; border-radius:5px;"></div>
+      </div>
+      <p>Risco de "Bomba Interna": 85% (Fração Redox-Sensível Fe-P)</p>
+    </div>
+    <!-- Other static cards will be overwritten -->
+  </div>
+
+  <script>
+    function renderSedimentAnalysis(data) {
+       var container = document.getElementById('sediment-dashboard');
+       container.innerHTML = ''; // Limpa estado estático
+
+       data.forEach(function(item) {
+          var riskClass = item.p_load === 'CRÍTICO' ? 'risk-high' : (item.p_load === 'MODERADO' ? 'risk-medium' : 'risk-low');
+          var barColor = item.p_load === 'CRÍTICO' ? '#d32f2f' : '#f57c00';
+          
+          var html = '<div class="sediment-card">' +
+             '<h4>Zona: ' + item.zone + '</h4>' +
+             '<p><strong>Carga Interna (P):</strong> <span class="' + riskClass + '">' + item.p_load + '</span></p>' +
+             '<p><small>Potencial Redox: ' + item.redox + 'mV ' + (item.redox < -100 ? '(Anoxia Ativa)' : '') + '</small></p>' +
+             '<div class="bar-container" style="background:#eee; height:10px; width:100%; border-radius:5px; margin:5px 0;">' +
+             '   <div style="background:' + barColor + '; width:' + item.risk_percent + '%; height:100%; border-radius:5px;"></div>' +
+             '</div>' + 
+             (item.microplastics === 'VERY_HIGH' || item.microplastics === 'HIGH' ? 
+               '<div style="margin-top:8px; border-top:1px solid #eee; padding-top:5px;">' +
+               '  <strong>Antropoceno:</strong> <span class="microplastic-tag">Fibras Sintéticas (Lavagem)</span>' +
+               '</div>' : '') +
+             '</div>';
+          
+          container.innerHTML += html;
+       });
+    }
+  </script>
+
+  <button onclick="google.script.run.withSuccessHandler(renderSedimentAnalysis).loadSedimentData()" class="btn-std btn-primary">Atualizar Dados de Sondagem</button>
+</div>

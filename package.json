@@ -1,0 +1,38 @@
+{
+  "name": "lago-paranoa",
+  "version": "1.0.0",
+  "description": "Sistema de Governança de Recursos Hídricos - Lago Paranoá (ADASA/CAESB/IBRAM)",
+  "main": "Code.js",
+  "scripts": {
+    "login": "clasp login",
+    "create": "clasp create --type webapp --title 'Lago Paranoá - Recursos Hídricos'",
+    "push": "clasp push",
+    "deploy": "clasp push && clasp deploy",
+    "open": "clasp open",
+    "version": "clasp version",
+    "versions": "clasp versions",
+    "status": "clasp status",
+    "list": "clasp push --watch",
+    "tools": "python run_all_tools.py",
+    "tools:fast": "python run_all_tools.py --skip test_workflows.py",
+    "tools:verbose": "python run_all_tools.py --verbose",
+    "analyze": "python analyze_project.py",
+    "check": "python check_maturity.py",
+    "validate": "python validate_integrity.py",
+    "fix": "python auto_fix.py",
+    "test": "python run_all_tests.py",
+    "test:integration": "python test_integration.py",
+    "test:apps-script": "python test_apps_script.py",
+    "test:quality": "python test_data_quality.py",
+    "test:workflows": "python test_workflows.py",
+    "ci": "python auto_fix.py && python validate_integrity.py && python run_all_tests.py",
+    "logs": "clasp logs",
+    "pull": "clasp pull"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@google/clasp": "^2.4.2",
+    "@types/google-apps-script": "^1.0.83"
+  }
+}

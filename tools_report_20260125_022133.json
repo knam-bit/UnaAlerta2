@@ -1,0 +1,51 @@
+{
+  "timestamp": "2026-01-25T02:21:33.050178",
+  "successful": 6,
+  "failed": 0,
+  "success_rate": 100.0,
+  "total_time": 2.306009,
+  "tools": [
+    {
+      "tool": "analyze_project.py",
+      "name": "Análise do Projeto",
+      "success": true,
+      "elapsed": 0.417893,
+      "output_lines": 288
+    },
+    {
+      "tool": "check_maturity.py",
+      "name": "Verificação de Maturidade",
+      "success": true,
+      "elapsed": 0.278818,
+      "output_lines": 38
+    },
+    {
+      "tool": "validate_integrity.py",
+      "name": "Validação de Integridade",
+      "success": true,
+      "elapsed": 0.331665,
+      "output_lines": 47
+    },
+    {
+      "tool": "advanced_analyzer.py",
+      "name": "Análise Avançada",
+      "success": true,
+      "elapsed": 0.552435,
+      "output_lines": 74
+    },
+    {
+      "tool": "gas_code_reviewer.py",
+      "name": "Revisão de Código GAS",
+      "success": true,
+      "elapsed": 0.251687,
+      "output_lines": 575
+    },
+    {
+      "tool": "generate_docs.py",
+      "name": "Geração de Documentação",
+      "success": true,
+      "elapsed": 0.473511,
+      "output_lines": 57
+    }
+  ]
+}

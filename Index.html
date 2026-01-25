@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <base target="_top">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+  <!-- IMPORTE PADRONIZADO DO DESIGN SYSTEM (RAIZ) -->
+  <?!= include('Stylesheet'); ?>
+
+  <style>
+    /* Dark mode overrides for dynamic content */
+    .ai-insight-box {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 0.95em;
+      border-left: 4px solid var(--info-color);
+      line-height: 1.5;
+      background: #f0f9ff;
+    }
+
+    body.dark-mode .ai-insight-box {
+      background: #1f2937;
+      /* Dark slate */
+      border-color: #3b82f6;
+    }
+
+    .msg-bot-content {
+      background: #e9ecef;
+      color: #333;
+      padding: 8px 12px;
+      border-radius: 15px;
+      display: inline-block;
+    }
+
+    body.dark-mode .msg-bot-content {
+      background: #374151;
+      /* Dark gray */
+      color: #e5e7eb;
+      /* Light gray text */
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER COM NAVEGAÇÃO -->
+  <header class="app-header">
+    <!-- Botão Voltar (dinâmico) -->
+    <button class="back-btn" id="back-btn" onclick="NavigationHelper.goBack()" style="display: none;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+      <span></span>
+    </button>
+
+    <span class="header-title">Paranoá</span>
+
+    <!-- Placeholder for desktop alignment if needed -->
+    <div style="width: 24px; display: none; @media(min-width: 769px){display:block;}"></div>
+  </header>
+
+  <!-- NAVEGAÇÃO PRINCIPAL (Separada para layout responsivo) -->
+  <nav class="header-nav">
+    <div class="nav-btn active" onclick="NavigationHelper.navigateTo('view-dashboard')" title="Dashboard"
+      data-view="view-dashboard">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="7" height="7"></rect>
+        <rect x="14" y="3" width="7" height="7"></rect>
+        <rect x="14" y="14" width="7" height="7"></rect>
+        <rect x="3" y="14" width="7" height="7"></rect>
+      </svg>
+      <span class="nav-label">Dash</span>
+    </div>
+    <div class="nav-btn" onclick="NavigationHelper.navigateTo('view-analise')" title="Análise Urbana/Hydro"
+      data-view="view-analise">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+        <polyline points="14 2 14 8 20 8"></polyline>
+        <line x1="16" y1="13" x2="8" y2="13"></line>
+        <line x1="16" y1="17" x2="8" y2="17"></line>
+        <polyline points="10 9 9 9 8 9"></polyline>
+      </svg>
+      <span class="nav-label">Análise</span>
+    </div>
+    <div class="nav-btn" onclick="NavigationHelper.navigateTo('view-denuncia')" title="Ciência Cidadã"
+      data-view="view-denuncia">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+        <circle cx="9" cy="7" r="4"></circle>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+      </svg>
+      <span class="nav-label">Denúncia</span>
+    </div>
+    <div class="nav-btn" onclick="NavigationHelper.navigateTo('view-dados')" title="Dados Brutos"
+      data-view="view-dados">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+        <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+        <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+      </svg>
+      <span class="nav-label">Dados</span>
+    </div>
+    <div class="nav-btn" onclick="NavigationHelper.navigateTo('view-ia')" title="Relatórios & IA" data-view="view-ia">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+      </svg>
+      <span class="nav-label">IA</span>
+    </div>
+    <div class="nav-btn" onclick="toggleTheme()" title="Alternar Tema" aria-label="Alternar tema claro/escuro">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>
+      <span class="nav-label">Tema</span>
+    </div>
+  </nav>
+
+
+  <!-- VIEW DASHBOARD -->
+  <div id="view-dashboard" class="app-view active">
+    <h3>Painel Completo de Monitoramento</h3>
+    <div id="iaReportGrid" class="grid">
+      <!-- Conteúdo será carregado via JS (loadGeminiInsights) -->
+      <div style="width:100%; text-align:center; padding: 40px; color: #666;">
+        <p>⏳ Carregando indicadores analíticos...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIEW ANÁLISE (Cálculos Backend) -->
+  <div id="view-analise" class="app-view">
+    <div class="grid">
+      <!-- Calculadora Impermeabilização -->
+      <div class="card">
+        <h3>🏗️ Impacto da Urbanização</h3>
+        <p>Estime o impacto do selamento do solo no escoamento (ImpermeabilizacaoService).</p>
+        <label>Taxa de Impermeabilização (%):</label>
+        <input type="number" id="impInput" min="0" max="100" placeholder="Ex: 65">
+        <button class="btn-std btn-primary" onclick="calcRunoff()">Calcular Runoff</button>
+        <div id="resRunoff" class="result-box"></div>
+        <div id="wsudSug" style="margin-top:10px; font-size: 0.9em; font-style: italic;"></div>
+      </div>
+
+      <!-- Calculadora Vulnerabilidade Aquífero -->
+      <div class="card">
+        <h3>💧 Vulnerabilidade Hidrogeológica</h3>
+        <p>Análise de risco para o Domínio Fraturado (FraturadoHandler).</p>
+        <label>Espessura do Manto (m):</label>
+        <input type="number" id="mantoInput" placeholder="Ex: 4">
+        <label>Presença de Fossas:</label>
+        <select id="fossaInput">
+          <option value="false">Não (Rede de Esgoto)</option>
+          <option value="true">Sim (Solução Individual)</option>
+        </select>
+        <button class="btn-std btn-primary" onclick="calcAquifer()">Analisar Risco</button>
+        <div id="resAquifer" class="result-box"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIEW DENÚNCIA (Mobilização Social com GPS) -->
+  <div id="view-denuncia" class="app-view">
+    <div class="card" style="max-width: 700px; margin: 0 auto;">
+      <h3>📢 Ciência Cidadã - Registrar Ocorrência</h3>
+      <p style="color: var(--text-secondary); margin-bottom: 20px;">Contribua com o monitoramento do lago. Sua denúncia
+        é encaminhada para ADASA/IBRAM.</p>
+
+      <!-- Tipo de Ocorrência -->
+      <label>Tipo de Ocorrência:</label>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px;">
+        <div class="type-card-main" onclick="selectDenType(this, 'ESGOTO')" data-selected="false">
+          <span style="font-size: 1.8rem;">🚽</span>
+          <span style="font-size: 0.75rem; font-weight: 600;">Esgoto/Odor</span>
+        </div>
+        <div class="type-card-main" onclick="selectDenType(this, 'ALGAS')" data-selected="false">
+          <span style="font-size: 1.8rem;">🤢</span>
+          <span style="font-size: 0.75rem; font-weight: 600;">Mancha Verde</span>
+        </div>
+        <div class="type-card-main" onclick="selectDenType(this, 'PEIXES')" data-selected="false">
+          <span style="font-size: 1.8rem;">🐟</span>
+          <span style="font-size: 0.75rem; font-weight: 600;">Peixes Mortos</span>
+        </div>
+        <div class="type-card-main" onclick="selectDenType(this, 'LIXO')" data-selected="false">
+          <span style="font-size: 1.8rem;">🗑️</span>
+          <span style="font-size: 0.75rem; font-weight: 600;">Lixo Flutuante</span>
+        </div>
+        <div class="type-card-main" onclick="selectDenType(this, 'OLEO')" data-selected="false">
+          <span style="font-size: 1.8rem;">🛢️</span>
+          <span style="font-size: 0.75rem; font-weight: 600;">Mancha Óleo</span>
+        </div>
+        <div class="type-card-main" onclick="selectDenType(this, 'ORLA')" data-selected="false">
+          <span style="font-size: 1.8rem;">🚧</span>
+          <span style="font-size: 0.75rem; font-weight: 600;">Ocupação Orla</span>
+        </div>
+      </div>
+
+      <!-- Zona (backup para GPS) -->
+      <label>Zona (referência):</label>
+      <select id="denZone">
+        <option value="Lago Sul">Lago Sul</option>
+        <option value="Lago Norte">Lago Norte</option>
+        <option value="Riacho Fundo">Riacho Fundo</option>
+        <option value="Barragem">Barragem</option>
+        <option value="Asa Norte Orla">Asa Norte Orla</option>
+        <option value="Asa Sul Orla">Asa Sul Orla</option>
+      </select>
+
+      <!-- GPS Capture -->
+      <div
+        style="background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 12px; padding: 16px; margin-bottom: 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <span style="font-weight: 600; color: #0369a1;">📍 Localização GPS</span>
+          <span id="gps-badge"
+            style="font-size: 0.75rem; padding: 4px 10px; border-radius: 12px; background: #fef3c7; color: #92400e; font-weight: 600;">Não
+            capturado</span>
+        </div>
+
+        <button class="btn-std btn-primary" id="btn-capture-gps" onclick="captureDenunciaGPS()"
+          style="width: 100%; margin-bottom: 10px;">
+          🎯 Capturar Minha Localização
+        </button>
+
+        <div id="gps-info"
+          style="display: none; background: white; border-radius: 8px; padding: 12px; font-size: 0.9rem;">
+          <div style="display: flex; gap: 16px;">
+            <div>
+              <strong>Lat:</strong> <span id="den-lat">--</span>
+            </div>
+            <div>
+              <strong>Lng:</strong> <span id="den-lng">--</span>
+            </div>
+          </div>
+          <div style="font-size: 0.8rem; color: #64748b; margin-top: 6px;" id="den-accuracy">--</div>
+        </div>
+
+        <!-- Entrada Manual -->
+        <details style="margin-top: 10px;">
+          <summary style="cursor: pointer; color: #64748b; font-size: 0.85rem;">✏️ Inserir coordenadas manualmente
+          </summary>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+            <div>
+              <label style="font-size: 0.8rem;">Latitude</label>
+              <input type="number" id="manual-lat" step="0.0001" placeholder="-15.7942" onchange="onManualGPSChange()">
+            </div>
+            <div>
+              <label style="font-size: 0.8rem;">Longitude</label>
+              <input type="number" id="manual-lng" step="0.0001" placeholder="-47.8822" onchange="onManualGPSChange()">
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <label>Descrição Adicional:</label>
+      <textarea id="denDescription" rows="3" placeholder="Descreva o que você observou (opcional)"
+        style="width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 8px; resize: vertical; margin-bottom: 16px;"></textarea>
+
+      <button class="btn-std btn-success" onclick="submitReportWithGPS()"
+        style="width: 100%; padding: 14px; font-size: 1rem;">
+        📤 Enviar Denúncia
+      </button>
+    </div>
+
+    <style>
+      .type-card-main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 14px 8px;
+        background: white;
+        border: 2px solid #e5e7eb;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        gap: 6px;
+      }
+
+      /* Dark mode support for Type Cards */
+      body.dark-mode .type-card-main {
+        background: #1f2937;
+        border-color: #374151;
+        color: #e5e7eb;
+      }
+
+      .type-card-main:hover {
+        border-color: #9ca3af;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      body.dark-mode .type-card-main:hover {
+        background: #374151;
+        border-color: #9ca3af;
+      }
+
+      .type-card-main[data-selected="true"] {
+        border-color: #dc2626;
+        background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      }
+
+      body.dark-mode .type-card-main[data-selected="true"] {
+        background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%);
+        border-color: #ef4444;
+        color: white;
+      }
+    </style>
+  </div>
+
+
+  <!-- VIEW DADOS (Sheets) -->
+  <div id="view-dados" class="app-view">
+    <div class="card">
+      <h3>📋 Dados Recentes de Monitoramento</h3>
+      <div style="overflow-x: auto;">
+        <table id="dataTable">
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Zona</th>
+              <th>Parâmetros Detalhados</th>
+              <th>Risco</th>
+            </tr>
+          </thead>
+          <tbody id="dataBody">
+            <tr>
+              <td colspan="4">Carregando dados do Google Sheets...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIEW RELATÓRIOS & IA -->
+  <div id="view-ia" class="app-view">
+    <!-- Chat Section -->
+    <div class="card" style="margin-bottom: 30px;">
+      <h3>💬 Fale com o Gemini Flash (Especialista Ambiental)</h3>
+      <div id="chatHistory"
+        style="height: 300px; overflow-y: auto; border: 1px solid #eee; padding: 15px; margin-bottom: 15px; background: #fdfdfd; border-radius: 4px;">
+        <div class="msg-bot"><strong>Gemini:</strong> Olá! Sou seu assistente de monitoramento ambiental. Pergunte-me
+          sobre qualidade da água, tendências de eutrofização ou riscos em áreas específicas.</div>
+      </div>
+      <div style="display: flex; gap: 10px;">
+        <input type="text" id="chatInput" placeholder="Ex: Qual a tendência do fósforo no Riacho Fundo?"
+          onkeypress="if(event.key === 'Enter') sendGeminiMessage()">
+        <button class="btn-std btn-primary" onclick="sendGeminiMessage()">Enviar</button>
+      </div>
+    </div>
+
+    <!-- Section moved to Main Dashboard -->
+  </div>
+
+  <!-- IMPORTE PADRONIZADO DA LÓGICA FRONTEND (RAIZ) -->
+  <?!= include('JavaScript'); ?>
+
+  <script>
+    google.charts.load('current', { 'packages': ['corechart', 'gauge'] });
+    google.charts.setOnLoadCallback(drawCharts);
+
+    // --- THEME LOGIC ---
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+    }
+
+    // --- CHART LOGIC ---
+    function drawCharts() {
+      // Gráficos individuais (Google Charts) removidos para dar lugar ao grid completo de 12 imagens
+
+      // Load Table Data
+      loadData();
+
+      // Load IA Insights (if on IA tab or background)
+      loadGeminiInsights();
+    }
+
+    // --- SERVICE CALLS ---
+    function calcRunoff() {
+      const val = document.getElementById('impInput').value;
+      google.script.run.withSuccessHandler(res => {
+        const box = document.getElementById('resRunoff');
+        box.style.display = 'block';
+        box.innerHTML = `<strong>Coeficiente Runoff:</strong> ${res.runoffCoefficient.toFixed(2)}<br>
+                         <strong>Nível de Risco:</strong> ${res.riskLevel}<br>
+                         <strong>Status Recarga:</strong> ${res.aquiferRechargeStatus}`;
+
+        if (res.riskLevel === 'HIGH_FLOOD_RISK') box.classList.add('risk-HIGH');
+        else box.classList.remove('risk-HIGH');
+
+        // WSUD Suggestion
+        google.script.run.withSuccessHandler(sug => {
+          document.getElementById('wsudSug').innerText = "💡 Sugestão WSUD: " + sug.join(', ');
+        }).apiSuggestWsud('SUBDIVISION_EXPANSION', 'LATOSSOLO_VERMELHO');
+
+      }).apiCalculateRunoff(parseFloat(val));
+    }
+
+    function calcAquifer() {
+      const manto = parseFloat(document.getElementById('mantoInput').value);
+      const fossa = document.getElementById('fossaInput').value === 'true';
+
+      google.script.run.withSuccessHandler(res => {
+        const box = document.getElementById('resAquifer');
+        box.style.display = 'block';
+        box.innerHTML = `<strong>Tipo Aquífero:</strong> ${res.aquiferType}<br>
+                          <strong>Vulnerabilidade:</strong> ${res.risk}<br>
+                          <strong>Mecanismo:</strong> ${res.mechanism}`;
+
+        if (res.risk === 'HIGH' || res.risk === 'EXTREME') box.classList.add('risk-HIGH');
+        else box.classList.remove('risk-HIGH');
+      }).apiCheckAquiferVulnerability(manto, fossa);
+    }
+
+    function submitReport() {
+      const report = {
+        midia: document.getElementById('denZone').value,
+        indicador: document.getElementById('denType').value,
+        valor: document.getElementById('denValue').value || 0
+      };
+
+      google.script.run.withSuccessHandler(msg => {
+        alert(msg);
+        document.getElementById('denValue').value = '';
+      }).submitOccurrence(report);
+    }
+
+    function loadData() {
+      google.script.run.withSuccessHandler(rows => {
+        const tbody = document.getElementById('dataBody');
+        tbody.innerHTML = '';
+        if (rows && rows.length > 0) {
+          rows.forEach(r => {
+            const dt = new Date(r.data).toLocaleDateString();
+            tbody.innerHTML += `<tr>
+                <td>${dt}</td>
+                <td>${r.midia}</td>
+                <td>${r.valor}</td>
+                <td style="color:${r.risco.includes('HIGH') || r.risco.includes('CRITICAL') ? 'var(--danger-color)' : 'var(--success-color)'}">${r.risco}</td>
+            </tr>`;
+          });
+        } else {
+          tbody.innerHTML = '<tr><td colspan="4">Nenhum dado recente encontrado.</td></tr>';
+        }
+      }).getDashboardData();
+    }
+
+    // --- LIGHTBOX LOGIC ---
+    function openLightbox(src) {
+      if (!src) return;
+      const lightbox = document.getElementById('mainLightbox');
+      const lightboxImg = document.getElementById('lightboxImg');
+      lightboxImg.src = src;
+      lightbox.style.display = "flex";
+    }
+
+    function closeLightbox() {
+      document.getElementById('mainLightbox').style.display = "none";
+    }
+
+    // Close on click outside
+    window.onclick = function (event) {
+      const lightbox = document.getElementById('mainLightbox');
+      if (event.target == lightbox) {
+        lightbox.style.display = "none";
+      }
+    }
+
+    // --- IA / GEMINI LOGIC ---
+
+    function loadGeminiInsights() {
+      // 1. Get Chart Images first (urls)
+      google.script.run.withSuccessHandler(chartUrls => {
+        // 2. Get Insights Text
+        google.script.run.withSuccessHandler(insights => {
+          const grid = document.getElementById('iaReportGrid');
+          grid.innerHTML = '';
+
+          // Define order of charts requested
+          const chartOrder = [
+            '01_KDE_Fosforo_Total', '02_KDE_Clorofila_a', '03_Violin_IQA_Pontos',
+            '04_Barras_Empilhadas_Eutrofizacao', '05_Radar_Sedimentos_Interno', '06_KDE_Turbidez_Suspensao',
+            '07_Violin_Microplasticos', '08_Barras_Empilhadas_Denuncias', '09_Radar_Compliance_Outorgas',
+            '10_Histograma_Loteamentos', '11_Violin_pH_Anoxia', '12_Barras_Biodiversidade_Stress'
+          ];
+
+          chartOrder.forEach(key => {
+            const imageUrl = chartUrls[key];
+            const text = insights[key] || "Análise indisponível no momento.";
+
+            // Image with Lightbox Trigger
+            let imgDisplay = '';
+            if (imageUrl) {
+              imgDisplay = `
+                    <div class="chart-container" style="position: relative; cursor: pointer; overflow: hidden; border-radius: 4px;" onclick="openLightbox('${imageUrl}')">
+                        <img src="${imageUrl}" style="width:100%; transition: transform 0.3s ease; display: block;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                        <div style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.6); color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; pointer-events: none;">
+                            🔍 Ampliar
+                        </div>
+                    </div>`;
+            } else {
+              imgDisplay = `<div style="height:200px; background:#f3f4f6; display:flex; align-items:center; justify-content:center; color:#9ca3af; border-radius: 4px;">Gráfico não gerado</div>`;
+            }
+
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                    <h3>${key.replace(/_/g, ' ').replace(/^\d+ /, '')}</h3>
+                    ${imgDisplay}
+                    <div class="ai-insight-box">
+                        <strong style="color: var(--primary-color); display: block; margin-bottom: 4px;">🤖 Análise de IA:</strong>
+                        <span style="color: var(--text-secondary);">${text}</span>
+                    </div>
+                 `;
+            grid.appendChild(card);
+          });
+
+        }).getGeminiReportData(); // Calls PublicInterface.gs wrapper
+
+      }).getChartImageUrls();
+    }
+
+    function sendGeminiMessage() {
+      const input = document.getElementById('chatInput');
+      const text = input.value;
+      if (!text.trim()) return;
+
+      const history = document.getElementById('chatHistory');
+
+      // Add User Message
+      history.innerHTML += `<div class="msg-user" style="text-align:right; margin: 10px 0;">
+            <span style="background:var(--primary-color); color:white; padding:8px 12px; border-radius:15px; display:inline-block;">${text}</span>
+        </div>`;
+
+      input.value = '';
+      history.scrollTop = history.scrollHeight;
+
+      // Call Backend
+      google.script.run.withSuccessHandler(response => {
+        const reply = response.response || "Desculpe, não consegui processar a resposta.";
+
+        history.innerHTML += `<div class="msg-bot" style="margin: 10px 0;">
+                <span class="msg-bot-content"><strong>Gemini:</strong> ${reply}</span>
+            </div>`;
+        history.scrollTop = history.scrollHeight;
+
+      }).sendGeminiChat(text, null); // Calls PublicInterface.gs wrapper
+    }
+
+    // === CONTROLE DO BOTÃO VOLTAR ===
+    // Atualiza visibilidade do botão voltar baseado no estado de navegação
+    (function () {
+      var backBtn = document.getElementById('back-btn');
+      if (!backBtn) return;
+
+      function updateBackButton() {
+        if (typeof NavigationHelper !== 'undefined' && NavigationHelper.canGoBack && NavigationHelper.canGoBack()) {
+          backBtn.style.display = 'inline-flex';
+        } else {
+          backBtn.style.display = 'none';
+        }
+      }
+
+      // Listener para mudanças de navegação
+      window.addEventListener('popstate', function () {
+        setTimeout(updateBackButton, 50);
+      });
+
+      // Sobrescreve navigateTo para atualizar botão
+      if (typeof NavigationHelper !== 'undefined') {
+        var originalNavigateTo = NavigationHelper.navigateTo.bind(NavigationHelper);
+        NavigationHelper.navigateTo = function (viewId, options) {
+          originalNavigateTo(viewId, options);
+          setTimeout(updateBackButton, 100);
+        };
+      }
+
+      // Estado inicial
+      setTimeout(updateBackButton, 200);
+    })();
+  </script>
+
+  <!-- Lightbox Structure -->
+  <div id="mainLightbox" class="lightbox">
+    <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
+    <img class="lightbox-content" id="lightboxImg">
+  </div>
+
+  <!-- Global Loader (para feedback durante navegação/carregamento) -->
+  <div id="global-loader" class="loading-overlay">
+    <div class="loading-spinner"></div>
+    <span class="loading-text">Carregando...</span>
+  </div>
+</body>
+
+</html>

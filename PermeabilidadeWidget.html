@@ -1,0 +1,80 @@
+<!--
+/**
+ * @file PermeabilidadeWidget.html
+ * @project Monitoramento Lago Paranoá
+ * @category hidrogeologia
+ * @tags permeabilidade, hidrogeologia, ui
+ * @architecture Mobile-First, Offline-First
+ * @description Componente gerado para monitoramento de indicadores e conscientização civil.
+ * @context Relatorio.md - Dinâmica Limnológica e Governança do Lago Paranoá
+ */
+-->
+
+<div class='component' id='PermeabilidadeWidget'>
+  <style>
+    .soil-selector { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; }
+    .infiltration-meter { height: 20px; background: #e0e0e0; border-radius: 10px; position: relative; overflow: hidden; margin-top: 10px; }
+    .infiltration-fill { height: 100%; background: #2196F3; transition: width 0.8s ease-in-out; }
+    .risk-badge { display: inline-block; padding: 4px 8px; border-radius: 4px; color: white; font-weight: bold; font-size: 0.8rem; margin-top: 10px; }
+    .risk-extreme { background: #d32f2f; }
+    .risk-moderate { background: #fbc02d; color: #333; }
+    .sponge-concept { background: #EFEBE9; padding: 10px; border-radius: 4px; margin-top: 10px; font-style: italic; font-size: 0.85rem; border-left: 3px solid #795548; }
+  </style>
+
+  <h3>Calculadora de Permeabilidade (Domínio Poroso)</h3>
+  <p class="context-note" style="font-size: 0.8rem; color: #666;">Dados: Tabela 1 - Relatorio.md (Seção 2.2)</p>
+
+  <label for="soilTypeSelect">Selecione o Solo/Local:</label>
+  <select id="soilTypeSelect" class="soil-selector" onchange="updatePermeabilityUI()">
+    <option value="LATOSSOLO_VERMELHO_P05" data-rate="120" data-kv="3.3e-4">Latossolo Vermelho (Sobradinho - Ponto 05)</option>
+    <option value="LATOSSOLO_VERMELHO_P02" data-rate="60" data-kv="1.2e-4">Latossolo Vermelho (Expansão - Ponto 02)</option>
+    <option value="LATOSSOLO_AMARELO_P06" data-rate="57" data-kv="5.0e-5">Latossolo Amarelo (Ponto 06)</option>
+    <option value="CAMBISSOLO" data-rate="10" data-kv="1.0e-6">Cambissolo (Declive > 10°)</option>
+  </select>
+
+  <div id="results-panel">
+    <p>Taxa de Infiltração Básica: <strong id="infiltration-val">120</strong> mm/h</p>
+    
+    <div class="infiltration-meter">
+      <div id="infiltration-bar" class="infiltration-fill" style="width: 90%;"></div>
+    </div>
+    
+    <div id="risk-container">
+       <span class="risk-badge risk-extreme">RISCO: EXTREMO</span>
+       <p class="sponge-concept">
+         <strong>Efeito Esponja:</strong> Solo de altíssima drenagem (Kv > 10⁻⁴ m/s). 
+         <br><br>
+         <em>Alerta (Seção 2.1):</em> O uso de fossas sépticas aqui gera "Risco Duplo". O esgoto percola rápido demais e atinge o aquífero sem filtração adequada.
+       </p>
+    </div>
+  </div>
+
+  <script>
+    function updatePermeabilityUI() {
+      const select = document.getElementById('soilTypeSelect');
+      const option = select.options[select.selectedIndex];
+      const rate = parseInt(option.getAttribute('data-rate'));
+      
+      document.getElementById('infiltration-val').innerText = rate;
+      
+      // Escala visual: 130mm/h como teto (100%)
+      const percentage = Math.min((rate / 130) * 100, 100);
+      document.getElementById('infiltration-bar').style.width = percentage + '%';
+      
+      const riskBadge = document.querySelector('.risk-badge');
+      const conceptText = document.querySelector('.sponge-concept');
+      
+      if (rate > 50) {
+        riskBadge.className = 'risk-badge risk-extreme';
+        riskBadge.innerText = 'VULNERABILIDADE: ALTA (CONTAMINAÇÃO)';
+        document.getElementById('infiltration-bar').style.background = '#d32f2f'; // Red for danger
+        conceptText.innerHTML = '<strong>Alerta Hidrogeológico:</strong> Transporte vertical rápido. <br>Proibido fossas rudimentares. Conexão com esgoto é mandatória para proteger o aquífero.';
+      } else {
+        riskBadge.className = 'risk-badge risk-moderate';
+        riskBadge.innerText = 'VULNERABILIDADE: EROSÃO';
+        document.getElementById('infiltration-bar').style.background = '#FBC02D'; // Yellow for warning
+        conceptText.innerHTML = '<strong>Alerta Geotécnico:</strong> Menor infiltração. <br>Risco aumentado de <em>runoff</em> superficial e transporte de sedimentos (assoreamento) para o lago.';
+      }
+    }
+  </script>
+</div>
